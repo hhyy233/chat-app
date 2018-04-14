@@ -19,16 +19,22 @@ io.on('connection', (socket) => {
 		console.log('User was disconnected...')
 	});
 	
-	socket.on('createMessage', (newMessage) => {
-		console.log('createMessage', newMessage);
+	socket.on('createMessage', (message) => {
+		io.emit('newMessage', {
+			from: message.from,
+			text: message.text,
+			createdAt: new Date().getTime()
+		});
 		
-		var message = {
-			from: newMessage.from,
-			text: newMessage.text,
-			createdAt: new Date()
-		}
-		socket.emit('newMessage', message);
+		// console.log('createMessage', newMessage);
 	});
+	
+	// var message = {
+		// from: newMessage.from,
+		// text: newMessage.text,
+		// createdAt: new Date()
+	// }
+	// socket.emit('newMessage', message);
 	
 }); //register an event listener 
 
