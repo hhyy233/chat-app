@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
 		console.log('User was disconnected...')
 	});
 	
-	socket.on('createMessage', (message) => {
+	socket.on('createMessage', (message, callback) => {
 		
 		// socket.broadcast.emit('newMessage', {
 			// from: message.from,
@@ -33,8 +33,8 @@ io.on('connection', (socket) => {
 		// });
 		
 		io.emit('newMessage', generateMessage(message.from, message.text));
-		
-		// console.log('createMessage', newMessage);
+		console.log('createMessage', message);
+		callback('This is from the server.');// acknowledge
 	});
 	
 	// var message = {
