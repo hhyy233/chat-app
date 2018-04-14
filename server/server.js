@@ -18,6 +18,18 @@ io.on('connection', (socket) => {
 	socket.on('disconnect', () => {
 		console.log('User was disconnected...')
 	});
+	
+	socket.on('createMessage', (newMessage) => {
+		console.log('createMessage', newMessage);
+		
+		var message = {
+			from: newMessage.from,
+			text: newMessage.text,
+			createdAt: new Date()
+		}
+		socket.emit('newMessage', message);
+	});
+	
 }); //register an event listener 
 
 server.listen(port, () => {
